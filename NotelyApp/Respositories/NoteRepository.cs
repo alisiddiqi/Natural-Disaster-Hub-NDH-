@@ -8,31 +8,31 @@ namespace NotelyApp.Repositories
 {
     public class NoteRepository : INoteRepository
     {
-        private readonly List<NoteModel> _notes;
+        private readonly List<PersonModel> _notes;
 
         public NoteRepository()
         {
-            _notes = new List<NoteModel>();
+            _notes = new List<PersonModel>();
         }
 
-        public NoteModel FindNoteById(Guid id)
+        public PersonModel FindNoteById(Guid id)
         {
             var note = _notes.Find(n => n.Id == id);
 
             return note;
         }
 
-        public IEnumerable<NoteModel> GetAllNotes()
+        public IEnumerable<PersonModel> GetAllNotes()
         {
             return _notes;
         }
 
-        public void SaveNote(NoteModel noteModel)
+        public void SaveNote(PersonModel noteModel)
         {
             _notes.Add(noteModel);
         }
 
-        public void DeleteNote(NoteModel noteModel)
+        public void DeleteNote(PersonModel noteModel)
         {
             _notes.Remove(noteModel);
         }

@@ -6,9 +6,9 @@ namespace NotelyApp.Repositories
 {
     public interface INoteRepository
     {
-        void DeleteNote(NoteModel noteModel);
-        NoteModel FindNoteById(Guid id);
-        IEnumerable<NoteModel> GetAllNotes();
-        void SaveNote(NoteModel noteModel);
+        void DeleteNote(PersonModel noteModel);
+        PersonModel FindNoteById(Guid id);
+        IEnumerable<PersonModel> GetAllNotes();
+        void SaveNote(PersonModel noteModel);
     }
 }

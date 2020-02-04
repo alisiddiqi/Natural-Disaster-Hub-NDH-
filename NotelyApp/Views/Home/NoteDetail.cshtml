@@ -1,16 +1,18 @@
 ﻿
-@model NoteModel
+@model PersonModel
 
 @{
-    ViewData["Title"] = "NoteDetail";
+    ViewData["Title"] = "Person Detail";
 }
 
 <div class="note-detail">
     <div class="panel panel-default note-detail__panel">
         <div class="panel-heading note-detail__panel-header">
             <h1 class="panel-title note-detail__panel-title">
-                @Model.Subject
+                @Model.FirstName @Model.LastName
             </h1>
+            <p>City Of Residence: @Model.CityOfResidence</p>
+            <p>Last Known Location: @Model.LastKnownLocation</p>
         </div>
         <div class="panel-body">
             <div class="note-detail__date-section">
@@ -45,12 +47,12 @@
                 </div>
                 <div>
                     <a class="note-detail__button" asp-action="NoteEditor" asp-route-id="@Model.Id">
-                        Edit Note
+                        Edit Info
                     </a>
                 </div>
                 <div>
                     <a class="note-detail__button" asp-action="DeleteNote" asp-route-id="@Model.Id">
-                        Delete Note
+                        Delete Info
                     </a>
                 </div>
             </div>

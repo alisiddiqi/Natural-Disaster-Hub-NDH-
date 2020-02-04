@@ -1,32 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
 using NotelyApp.Models;
 using NotelyApp.Repositories;
+using System;
+using System.Diagnostics;
+using System.Linq;
 
 namespace NotelyApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly INoteRepository _noteRepository;
+        private readonly INoteRepository _personRepository;
         public HomeController(INoteRepository noteRepository)
         {
-            _noteRepository = noteRepository;
+            _personRepository = noteRepository;
         }
 
         public IActionResult Index()
         {
-            var notes = _noteRepository.GetAllNotes().Where(n => n.IsDeleted == false);
+            var notes = _personRepository.GetAllNotes().Where(n => n.IsDeleted == false);
             return View(notes);
         }
 
         public IActionResult NoteDetail(Guid id)
         {
-            var note = _noteRepository.FindNoteById(id);
+            var note = _personRepository.FindNoteById(id);
             return View(note);
         }
 
@@ -35,7 +32,7 @@ namespace NotelyApp.Controllers
         {
             if (id != Guid.Empty)
             {
-                var note = _noteRepository.FindNoteById(id);
+                var note = _personRepository.FindNoteById(id);
                 return View(note);
             }
 
@@ -44,26 +41,30 @@ namespace NotelyApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult NoteEditor(NoteModel noteModel)
+        public IActionResult NoteEditor(PersonModel personModel)
         {
             if (ModelState.IsValid)
             {
                 var date = DateTime.Now;
 
-                if (noteModel != null && noteModel.Id == Guid.Empty)
+                if (personModel != null && personModel.Id == Guid.Empty)
                 {
-                    noteModel.Id = Guid.NewGuid();
-                    noteModel.CreatedDate = date;
-                    noteModel.LastModified = date;
+                    personModel.Id = Guid.NewGuid();
+                    personModel.CreatedDate = date;
+                    personModel.LastModified = date;
 
-                    _noteRepository.SaveNote(noteModel);
+                    _personRepository.SaveNote(personModel);
                 }
                 else
                 {
-                    var note = _noteRepository.FindNoteById(noteModel.Id);
-                    note.LastModified = date;
-                    note.Subject = noteModel.Subject;
-                    note.Detail = noteModel.Detail;
+                    var person = _personRepository.FindNoteById(personModel.Id);
+                    person.LastModified = date;
+                    person.Subject = personModel.Subject;
+                    person.Detail = personModel.Detail;
+                    person.FirstName = personModel.FirstName;
+                    person.LastName = personModel.LastName;
+                    person.LastKnownLocation = person.LastKnownLocation;
+                    
                 }
 
                 return RedirectToAction("Index");
@@ -76,7 +77,7 @@ namespace NotelyApp.Controllers
 
         public IActionResult DeleteNote(Guid id)
         {
-            var note = _noteRepository.FindNoteById(id);
+            var note = _personRepository.FindNoteById(id);
             note.IsDeleted = true;
 
             return RedirectToAction("Index");
