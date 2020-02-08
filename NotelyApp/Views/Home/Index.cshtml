@@ -14,12 +14,12 @@
             </h3>
         </div>
 
-        @foreach (PersonModel note in Model.Reverse())
+        @foreach (PersonModel person in Model.Reverse())
         {
             <div class="panel panel-default">
-                <a asp-action="NoteDetail" asp-route-id="@note.Id" class="index__list-item-link">
+                <a asp-action="PersonDetail" asp-route-id="@person.Id" class="index__list-item-link">
                     <div class="panel-body">
-                        @note.FirstName @note.LastName <span class="float-right">@note.CityOfResidence</span>
+                        @person.FirstName @person.LastName <span class="float-right">@person.CityOfResidence</span>
                     </div>
                 </a>
             </div>
@@ -37,7 +37,7 @@
     }
 
     <div class="index__new-note-button-wrapper">
-        <a asp-action="NoteEditor" class="index__new-note-button">Add Person</a>
+        <a asp-action="PersonEditor" class="index__new-note-button">Add Person</a>
     </div>
 </div>
 

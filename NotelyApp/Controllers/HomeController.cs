@@ -9,39 +9,40 @@ namespace NotelyApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly INoteRepository _personRepository;
-        public HomeController(INoteRepository noteRepository)
+        private readonly IPersonRepository _personRepository;
+        public HomeController(IPersonRepository personRepository)
         {
-            _personRepository = noteRepository;
+            _personRepository = personRepository;
         }
 
         public IActionResult Index()
         {
-            var notes = _personRepository.GetAllNotes().Where(n => n.IsDeleted == false);
-            return View(notes);
+            var persons = _personRepository.GetAllPersons().Where(n => n.IsDeleted == false);
+            return View(persons);
         }
 
-        public IActionResult NoteDetail(Guid id)
+        public IActionResult PersonDetail(Guid id)
         {
-            var note = _personRepository.FindNoteById(id);
-            return View(note);
+            var person = _personRepository.FindPersonById(id);
+            return View(person);
         }
 
         [HttpGet]
-        public IActionResult NoteEditor(Guid id = default)
+        public IActionResult PersonEditor(Guid id = default)
         {
             if (id != Guid.Empty)
             {
-                var note = _personRepository.FindNoteById(id);
-                return View(note);
+                var person = _personRepository.FindPersonById(id);
+                return View(person);
             }
 
             return View();
 
         }
 
+
         [HttpPost]
-        public IActionResult NoteEditor(PersonModel personModel)
+        public IActionResult PersonEditor(PersonModel personModel)
         {
             if (ModelState.IsValid)
             {
@@ -53,18 +54,17 @@ namespace NotelyApp.Controllers
                     personModel.CreatedDate = date;
                     personModel.LastModified = date;
 
-                    _personRepository.SaveNote(personModel);
+                    _personRepository.SavePerson(personModel);
                 }
                 else
                 {
-                    var person = _personRepository.FindNoteById(personModel.Id);
+                    var person = _personRepository.FindPersonById(personModel.Id);
                     person.LastModified = date;
                     person.Subject = personModel.Subject;
                     person.Detail = personModel.Detail;
                     person.FirstName = personModel.FirstName;
                     person.LastName = personModel.LastName;
                     person.LastKnownLocation = person.LastKnownLocation;
-                    
                 }
 
                 return RedirectToAction("Index");
@@ -75,13 +75,15 @@ namespace NotelyApp.Controllers
             }
         }
 
-        public IActionResult DeleteNote(Guid id)
-        {
-            var note = _personRepository.FindNoteById(id);
-            note.IsDeleted = true;
+        public IActionResult DeletePerson(Guid id)
+        {   
+            var person = _personRepository.FindPersonById(id);
+            person.IsDeleted = true;
 
             return RedirectToAction("Index");
         }
+
+      
 
         public IActionResult Privacy()
         {
