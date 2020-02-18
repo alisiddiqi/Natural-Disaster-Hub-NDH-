@@ -47,7 +47,6 @@ namespace NotelyApp.Repositories
 
         public void DeleteNote(PersonModel person)
         {
-            _context.Persons.Remove(person);
             _context.SaveChanges();
         }
     }

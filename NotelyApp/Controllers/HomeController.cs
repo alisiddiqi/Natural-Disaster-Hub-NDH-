@@ -80,9 +80,7 @@ namespace NotelyApp.Controllers
         {
             var person = _personRepository.FindPersonById(id);
             person.IsDeleted = true;
-
             _personRepository.DeleteNote(person);
-
             return RedirectToAction("Index");
         }
 
