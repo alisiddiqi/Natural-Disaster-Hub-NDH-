@@ -9,7 +9,7 @@ using NotelyApp.Models;
 
 namespace NotelyApp.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(PersonDbContext))]
     [Migration("20200218151321_AddPersonToDb")]
     partial class AddPersonToDb
     {

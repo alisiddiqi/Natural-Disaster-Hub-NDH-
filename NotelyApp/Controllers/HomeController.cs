@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NotelyApp.Models;
 using NotelyApp.Repositories;
-
 using System;
 using System.Diagnostics;
 using System.Linq;

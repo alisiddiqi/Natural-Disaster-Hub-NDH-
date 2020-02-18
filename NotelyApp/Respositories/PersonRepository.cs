@@ -3,43 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NotelyApp.Models;
+using NotelyApp.Migrations;
 
 namespace NotelyApp.Repositories
 {
     public class PersonRepository : IPersonRepository
     {
-        private readonly List<PersonModel> _person;
+        private readonly PersonDbContext _context;
 
-        public PersonRepository()
+        public PersonRepository(PersonDbContext context)
         {
-            _person = new List<PersonModel>();
+            _context = context;
         }
 
         public PersonModel FindPersonById(Guid id)
         {
-            var person = _person.Find(n => n.Id == id);
-
+            var person = _context.Persons.Find(id);
             return person;
         }
-        public PersonModel FindPersonByName(string id)
+        public PersonModel FindPersonByName(string id) // check it out later
         {
-            var person = _person.Find(n => n.FirstName == id);
+            var person = _context.Persons.Find(id);
             return person;
         }
 
         public IEnumerable<PersonModel> GetAllPersons()
         {
-            return _person;
+            var persons = _context.Persons;
+            return persons;
         }
 
-        public void SavePerson(PersonModel personModel)
+        public void SavePerson(PersonModel person)
         {
-            _person.Add(personModel);
+            _context.Add(person);
+            _context.SaveChanges();
         }
 
-        public void DeleteNote(PersonModel personModel)
+        public void DeleteNote(PersonModel person)
         {
-            _person.Remove(personModel);
+            _context.Persons.Remove(person);
+            _context.SaveChanges();
         }
     }
 }
