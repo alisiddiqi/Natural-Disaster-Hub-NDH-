@@ -66,8 +66,8 @@ namespace NotelyApp.Controllers
                     person.FirstName = personModel.FirstName;
                     person.LastName = personModel.LastName;
                     person.LastKnownLocation = person.LastKnownLocation;
+                    _personRepository.EditPerson(person);
                 }
-
                 return RedirectToAction("Index");
             }
             else
@@ -77,9 +77,11 @@ namespace NotelyApp.Controllers
         }
 
         public IActionResult DeletePerson(Guid id)
-        {   
+        {
             var person = _personRepository.FindPersonById(id);
             person.IsDeleted = true;
+
+            _personRepository.DeleteNote(person);
 
             return RedirectToAction("Index");
         }
