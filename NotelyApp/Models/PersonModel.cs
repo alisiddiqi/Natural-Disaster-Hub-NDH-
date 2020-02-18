@@ -17,7 +17,9 @@ namespace NotelyApp.Models
         public string LastName { get; set; }
         public string CityOfResidence { get; set; }
         public string LastKnownLocation { get; set; }
-       
+        public string Search { get; set; }
+
+
         public DateTime CreatedDate { get; set; }
         public DateTime LastModified { get; set; }
         public bool IsDeleted { get; set; }

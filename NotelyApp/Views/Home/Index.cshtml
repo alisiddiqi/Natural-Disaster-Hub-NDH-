@@ -5,39 +5,39 @@
 }
 
 
-<div class="index">
-    @if (Model.Any())
-    {
-        <div class="panel panel-default index__header">
-            <h3 class="panel-body">
-                Your Notes
-            </h3>
-        </div>
-
-        @foreach (PersonModel person in Model.Reverse())
+    <div class="index">
+        @if (Model.Any())
         {
-            <div class="panel panel-default">
-                <a asp-action="PersonDetail" asp-route-id="@person.Id" class="index__list-item-link">
-                    <div class="panel-body">
-                        @person.FirstName @person.LastName <span class="float-right">@person.CityOfResidence</span>
-                    </div>
-                </a>
+            <div class="panel panel-default index__header">
+                <h3 class="panel-body">
+                    Your Notes
+                </h3>
             </div>
+            
+            @foreach (PersonModel person in Model.Reverse())
+            {
+                <div class="panel panel-default">
+                    <a asp-action="PersonDetail" asp-route-id="@person.Id" class="index__list-item-link">
+                        <div class="panel-body">
+                            @person.FirstName @person.LastName <span class="float-right">@person.CityOfResidence</span>
+                        </div>
+                    </a>
+                </div>
 
+            }
         }
-    }
-    else
-    {
+        else
+        {
 
-        <div class="panel panel-default index__empty-list">
-            <h3 class="panel-body">
-                You don't have any notes. Click on the button below to create a note.
-            </h3>
+            <div class="panel panel-default index__empty-list">
+                <h3 class="panel-body">
+                    You don't have any notes. Click on the button below to create a note.
+                </h3>
+            </div>
+        }
+
+        <div class="index__new-note-button-wrapper">
+            <a asp-action="PersonEditor" class="index__new-note-button">Add Person</a>
         </div>
-    }
-
-    <div class="index__new-note-button-wrapper">
-        <a asp-action="PersonEditor" class="index__new-note-button">Add Person</a>
     </div>
-</div>
 

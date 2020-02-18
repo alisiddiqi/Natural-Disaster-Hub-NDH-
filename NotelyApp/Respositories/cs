@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace NotelyApp.Repositories
 {
-    public interface IFindPersonRepository
+    public interface cs
     {
         FindPersonModel FindPersonById(Guid id);
         IEnumerable<FindPersonModel> GetAllPersons();

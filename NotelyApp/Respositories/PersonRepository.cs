@@ -21,6 +21,11 @@ namespace NotelyApp.Repositories
 
             return person;
         }
+        public PersonModel FindPersonByName(string id)
+        {
+            var person = _person.Find(n => n.FirstName == id);
+            return person;
+        }
 
         public IEnumerable<PersonModel> GetAllPersons()
         {

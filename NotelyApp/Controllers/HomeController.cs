@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NotelyApp.Models;
 using NotelyApp.Repositories;
+
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NotelyApp.Controllers
 {
@@ -37,9 +39,9 @@ namespace NotelyApp.Controllers
             }
 
             return View();
-
         }
 
+     
 
         [HttpPost]
         public IActionResult PersonEditor(PersonModel personModel)
