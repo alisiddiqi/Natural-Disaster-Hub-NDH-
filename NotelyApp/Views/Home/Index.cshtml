@@ -1,11 +1,23 @@
 ﻿@model IEnumerable<PersonModel>
 
 @{
-    ViewData["Title"] = "My Notes";
+    ViewData["Title"] = "List of Victims";
 }
 
 
     <div class="index">
+
+        <form asp-controller="Home" asp-action="Index" method="get">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button class="btn btn-outline-success" type="button">
+                        Search
+                    </button>
+                </div>
+                <input type="text" class="form-control" placeholder="Search By First Name" name="id">
+            </div>
+        </form>
+
         @if (Model.Any())
         {
             <div class="panel panel-default index__header">
@@ -13,7 +25,7 @@
                     Your Notes
                 </h3>
             </div>
-            
+
             @foreach (PersonModel person in Model.Reverse())
             {
                 <div class="panel panel-default">
@@ -31,7 +43,7 @@
 
             <div class="panel panel-default index__empty-list">
                 <h3 class="panel-body">
-                    You don't have any notes. Click on the button below to create a note.
+                    There are no people added
                 </h3>
             </div>
         }

@@ -15,18 +15,24 @@ namespace NotelyApp.Controllers
         {
             _personRepository = personRepository;
         }
-
-        public IActionResult Index()
+      
+        public IActionResult Index(string id)
         {
-            var persons = _personRepository.GetAllPersons().Where(n => n.IsDeleted == false);
+            var persons = _personRepository.GetAllPersons().Where(n => n.IsDeleted != true);
+            if (!String.IsNullOrEmpty(id))
+            {
+                persons = persons.Where(s => s.FirstName.ToLower().Contains(id.ToLower()));
+            }
             return View(persons);
         }
+
 
         public IActionResult PersonDetail(Guid id)
         {
             var person = _personRepository.FindPersonById(id);
             return View(person);
         }
+
 
         [HttpGet]
         public IActionResult PersonEditor(Guid id = default)
@@ -39,8 +45,7 @@ namespace NotelyApp.Controllers
 
             return View();
         }
-
-     
+        
 
         [HttpPost]
         public IActionResult PersonEditor(PersonModel personModel)
@@ -84,12 +89,11 @@ namespace NotelyApp.Controllers
             return RedirectToAction("Index");
         }
 
-      
-
         public IActionResult Privacy()
         {
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
